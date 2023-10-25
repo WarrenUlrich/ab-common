@@ -25,7 +25,10 @@ list(
         "$ENV{USERPROFILE}/AlpacaBot/Library"
 )
 
-include_directories(${EXTRA_INCLUDE_DIRS})
+target_include_directories(
+    ${PROJECT_NAME} PUBLIC
+        ${EXTRA_INCLUDE_DIRS}
+)
 
 find_library(ALPACABOT_LIBRARY NAMES AlpacaLibrary PATHS ${EXTRA_LIB_DIRS} NO_DEFAULT_PATH)
 if(NOT ALPACABOT_LIBRARY)

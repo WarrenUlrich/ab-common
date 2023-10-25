@@ -12,6 +12,10 @@ equippable::equippable(equippable &&other)
     : name_pattern(std::move(other.name_pattern)),
       slot(std::move(other.slot)) {}
 
+equippable::equippable(const std::string &pattern,
+                       Equipment::SLOT slot)
+    : name_pattern(pattern), slot(slot) {}
+
 equippable &equippable::operator=(const equippable &other) {
   this->name_pattern = other.name_pattern;
   this->slot = other.slot;
@@ -28,7 +32,7 @@ equippable::operator=(equippable &&other) noexcept {
 bool equippable::has() const {
   if (equipped())
     return true;
-  
+
   const auto item = Inventory::GetItem(name_pattern);
   if (!item)
     return false;

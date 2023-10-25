@@ -26,16 +26,15 @@ public:
   equipment_set &operator=(const equipment_set &other);
   equipment_set &operator=(equipment_set &&other) noexcept;
 
-  std::optional<std::unique_ptr<equippable>> &
+  std::optional<equippable> &
   operator[](Equipment::SLOT slot);
-  const std::optional<std::unique_ptr<equippable>> &
+  const std::optional<equippable> &
   operator[](Equipment::SLOT slot) const;
 
-  bool operator==(const equipment_set &other) const;
-  bool operator!=(const equipment_set &other) const;
+  // bool operator==(const equipment_set &other) const;
+  // bool operator!=(const equipment_set &other) const;
 
 private:
-  std::array<std::optional<std::unique_ptr<equippable>>, 11>
-      _set;
+  std::array<std::optional<equippable>, 11> _set;
 };
 } // namespace ab

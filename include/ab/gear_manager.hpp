@@ -9,5 +9,7 @@ namespace ab {
   class gear_manager {
   public:
     std::unordered_map<std::string, equipment_set> switches;
+
+    gear_manager() = default;
   };
 }

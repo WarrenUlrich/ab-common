@@ -19,8 +19,7 @@ public:
   equippable &operator=(equippable &&other) noexcept;
 
   equippable(const std::string &pattern,
-             Equipment::SLOT slot)
-      : name_pattern(pattern), slot(slot) {}
+             Equipment::SLOT slot);
   
   bool has() const;
 
