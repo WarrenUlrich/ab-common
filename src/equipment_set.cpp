@@ -17,7 +17,8 @@ equipment_set::equipment_set(const equipment_set &other) {
 equipment_set::equipment_set(
     equipment_set &&other) noexcept = default;
 
-equipment_set &equipment_set::operator=(const equipment_set &other) {
+equipment_set &
+equipment_set::operator=(const equipment_set &other) {
   for (auto slot =
            static_cast<std::size_t>(Equipment::HEAD);
        slot < Equipment::AMMO; ++slot) {
@@ -30,8 +31,10 @@ equipment_set &equipment_set::operator=(const equipment_set &other) {
 equipment_set &equipment_set::operator=(
     equipment_set &&other) noexcept = default;
 
-void equipment_set::emplace(std::string_view name_pattern, Equipment::SLOT slot) {
-  _set[static_cast<std::size_t>(slot)] = equippable(name_pattern, slot);
+void equipment_set::emplace(std::string_view name_pattern,
+                            Equipment::SLOT slot) {
+  _set[static_cast<std::size_t>(slot)] =
+      equippable(name_pattern, slot);
 }
 
 bool equipment_set::has(Equipment::SLOT slot) const {
@@ -88,6 +91,34 @@ bool equipment_set::equipped() const {
            static_cast<std::size_t>(Equipment::HEAD);
        slot < Equipment::AMMO; ++slot) {
     if (!this->equipped(static_cast<Equipment::SLOT>(slot)))
+      return false;
+  }
+
+  return true;
+}
+
+bool equipment_set::in_bank(Equipment::SLOT slot) const {
+  if (!Bank::IsOpen())
+    return false;
+
+  const auto &equippable =
+      _set[static_cast<std::size_t>(slot)];
+
+  if (!equippable.has_value())
+    return false;
+
+  const auto banked_item = Bank::GetItem(equippable->name_pattern);
+  if (!banked_item || banked_item.GetStackAmount() == 0)
+    return false;
+  
+  return true;
+}
+
+bool equipment_set::in_bank() {
+  for (auto slot =
+           static_cast<std::size_t>(Equipment::HEAD);
+       slot < Equipment::AMMO; ++slot) {
+    if (!this->in_bank(static_cast<Equipment::SLOT>(slot)))
       return false;
   }
 
