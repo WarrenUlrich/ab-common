@@ -12,9 +12,9 @@ equippable::equippable(equippable &&other)
     : name_pattern(std::move(other.name_pattern)),
       slot(std::move(other.slot)) {}
 
-equippable::equippable(const std::string &pattern,
+equippable::equippable(std::string_view name_pattern,
                        Equipment::SLOT slot)
-    : name_pattern(pattern), slot(slot) {}
+    : name_pattern(name_pattern.begin(), name_pattern.end()), slot(slot) {}
 
 equippable &equippable::operator=(const equippable &other) {
   this->name_pattern = other.name_pattern;

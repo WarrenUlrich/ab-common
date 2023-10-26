@@ -3,6 +3,7 @@
 #include <regex>
 #include <string>
 #include <vector>
+#include <string_view>
 
 #include <Game/Core.hpp>
 
@@ -18,7 +19,7 @@ public:
   equippable &operator=(const equippable &other);
   equippable &operator=(equippable &&other) noexcept;
 
-  equippable(const std::string &pattern,
+  equippable(std::string_view name_pattern,
              Equipment::SLOT slot);
   
   bool has() const;

@@ -30,6 +30,10 @@ equipment_set &equipment_set::operator=(const equipment_set &other) {
 equipment_set &equipment_set::operator=(
     equipment_set &&other) noexcept = default;
 
+void equipment_set::emplace(std::string_view name_pattern, Equipment::SLOT slot) {
+  _set[static_cast<std::size_t>(slot)] = equippable(name_pattern, slot);
+}
+
 bool equipment_set::has(Equipment::SLOT slot) const {
   const auto &equippable =
       _set[static_cast<std::size_t>(slot)];
