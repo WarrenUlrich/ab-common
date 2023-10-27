@@ -14,6 +14,8 @@ public:
   Equipment::SLOT slot;
 
   equippable();
+  ~equippable();
+  
   equippable(const equippable &other);
   equippable(equippable &&other);
   equippable &operator=(const equippable &other);

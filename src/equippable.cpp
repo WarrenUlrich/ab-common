@@ -5,6 +5,8 @@
 namespace ab {
 equippable::equippable() = default;
 
+equippable::~equippable() = default;
+
 equippable::equippable(const equippable &other)
     : name_pattern(other.name_pattern), slot(other.slot) {}
 

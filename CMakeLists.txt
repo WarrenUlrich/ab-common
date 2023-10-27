@@ -12,6 +12,9 @@ add_library(
         src/consumable.cpp
         src/equippable.cpp
         src/equipment_set.cpp
+        src/prayer_manager.cpp
+        src/restock_manager.cpp
+        src/equipment_manager.cpp
 )
 
 list(
