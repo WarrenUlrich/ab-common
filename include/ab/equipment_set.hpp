@@ -24,7 +24,12 @@ public:
   bool equipped() const;
 
   bool in_bank(Equipment::SLOT slot) const;
-  bool in_bank();
+  bool in_bank() const;
+  
+  bool withdraw(Equipment::SLOT slot) const;
+  bool withdraw() const;
+
+  bool withdraw_missing() const;
   
   equipment_set(const equipment_set &other);
   equipment_set(equipment_set &&other) noexcept;

@@ -8,8 +8,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(
     ${PROJECT_NAME} STATIC 
-        src/gear_manager.cpp
         src/consumable.cpp
+        src/food.cpp
         src/equippable.cpp
         src/equipment_set.cpp
         src/prayer_manager.cpp

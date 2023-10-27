@@ -107,14 +107,58 @@ bool equipment_set::in_bank(Equipment::SLOT slot) const {
   if (!equippable.has_value())
     return false;
 
-  const auto banked_item = Bank::GetItem(equippable->name_pattern);
+  const auto banked_item =
+      Bank::GetItem(equippable->name_pattern);
   if (!banked_item || banked_item.GetStackAmount() == 0)
     return false;
-  
+
   return true;
 }
 
-bool equipment_set::in_bank() {
+bool equipment_set::withdraw(Equipment::SLOT slot) const {
+  if (!Bank::IsOpen())
+    return false;
+
+  const auto &equippable =
+      _set[static_cast<std::size_t>(slot)];
+
+  if (!equippable.has_value())
+    return false;
+
+  const auto banked_item =
+      Bank::GetItem(equippable->name_pattern);
+  if (!banked_item || banked_item.GetStackAmount() == 0)
+    return false;
+
+  return Bank::Withdraw(banked_item, 1, true);
+}
+
+bool equipment_set::withdraw() const {
+  for (auto slot =
+           static_cast<std::size_t>(Equipment::HEAD);
+       slot < Equipment::AMMO; ++slot) {
+    if (!this->withdraw(static_cast<Equipment::SLOT>(slot)))
+      return false;
+  }
+
+  return true;
+}
+
+bool equipment_set::withdraw_missing() const {
+  for (auto slot =
+           static_cast<std::size_t>(Equipment::HEAD);
+       slot < Equipment::AMMO; ++slot) {
+    if (this->has(static_cast<Equipment::SLOT>(slot)))
+      continue;
+
+    if (!this->withdraw(static_cast<Equipment::SLOT>(slot)))
+      return false;
+  }
+
+  return true;
+}
+
+bool equipment_set::in_bank() const {
   for (auto slot =
            static_cast<std::size_t>(Equipment::HEAD);
        slot < Equipment::AMMO; ++slot) {

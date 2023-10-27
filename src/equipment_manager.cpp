@@ -29,10 +29,20 @@ equipment_manager::operator=(equipment_manager &&other) {
   return *this;
 }
 
+bool equipment_manager::has(
+    const std::string &switch_name) const {
+  return switches.at(switch_name).has();
+}
+
+bool equipment_manager::withdraw(
+    const std::string &switch_name) const {
+  return switches.at(switch_name).withdraw();
+}
+
 bool equipment_manager::equipped(
     const std::string &switch_name) const {
   const auto &set = switches.at(switch_name);
-  return set.equipped();
+  return switches.at(switch_name).equipped();
 }
 
 bool equipment_manager::equip(
