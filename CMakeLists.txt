@@ -13,7 +13,7 @@ add_library(
         src/equippable.cpp
         src/equipment_set.cpp
         src/prayer_manager.cpp
-        src/restock_manager.cpp
+        src/exchange_manager.cpp
         src/equipment_manager.cpp
 )
 
@@ -39,7 +39,7 @@ if(NOT ALPACABOT_LIBRARY)
 endif()
 
 target_link_libraries(
-    ${PROJECT_NAME} PRIVATE 
+    ${PROJECT_NAME} PRIVATE
         ${ALPACABOT_LIBRARY}
 )
 
